@@ -1,0 +1,224 @@
+{
+	"class": "Module",
+	"id": "node_852",
+	"inlets": {
+		
+	},
+	"outlets": [
+		{
+			"assist": "out1"
+		},
+		{
+			"assist": "out2"
+		}
+	],
+	"imports": {
+		
+	},
+	"functions": {
+		
+	},
+	"block": {
+		"class": "Block",
+		"id": "node_886",
+		"children": [
+			{
+				"class": "Declaration",
+				"id": "node_854",
+				"name": "drumloop",
+				"inputs": [
+					{
+						"class": "Constant",
+						"id": "node_855",
+						"value": "153400",
+						"eval": 153400,
+						"type": "constant int",
+						"source": "box: [data drumloop 153400 2] => drumloop_dim_26,drumloop_chans_27"
+					},
+					{
+						"class": "Constant",
+						"id": "node_856",
+						"value": "2",
+						"eval": 2,
+						"type": "constant int",
+						"source": "box: [data drumloop 153400 2] => drumloop_dim_26,drumloop_chans_27"
+					}
+				],
+				"attributes": {
+					
+				},
+				"type": "init Data",
+				"typename": "Data",
+				"source": "box: [data drumloop 153400 2] => drumloop_dim_26,drumloop_chans_27"
+			},
+			{
+				"class": "Statement",
+				"id": "node_865",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_866",
+						"operator": "phasor",
+						"inputs": [
+							{
+								"class": "Constant",
+								"id": "node_867",
+								"value": "0.3",
+								"eval": 0.3,
+								"type": "constant t_sample",
+								"source": "box: [phasor 0.3 $in1] => phasor_17"
+							},
+							{
+								"class": "Constant",
+								"id": "node_868",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [phasor 0.3 $in1] => phasor_17"
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal t_sample",
+						"source": "box: [phasor 0.3 $in1] => phasor_17"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_869",
+						"name": "phasor_17",
+						"type": "signal t_sample",
+						"source": "box: [phasor 0.3 $in1] => phasor_17"
+					}
+				],
+				"source": "box: [phasor 0.3 $in1] => phasor_17"
+			},
+			{
+				"class": "Statement",
+				"id": "node_870",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_871",
+						"operator": "sample",
+						"inputs": [
+							{
+								"class": "Variable",
+								"id": "node_872",
+								"name": "drumloop",
+								"type": "init Data",
+								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+							},
+							{
+								"class": "Variable",
+								"id": "node_873",
+								"name": "phasor_17",
+								"type": "signal t_sample",
+								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+							},
+							{
+								"class": "Constant",
+								"id": "node_874",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+							}
+						],
+						"attributes": {
+							"channels": {
+								"class": "Attribute",
+								"id": "node_875",
+								"name": "channels",
+								"value": {
+									"class": "Constant",
+									"id": "node_807",
+									"value": "2",
+									"eval": 2,
+									"type": "constant int",
+									"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+								},
+								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+							}
+						},
+						"type": "signal t_sample",
+						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_876",
+						"name": "sample_drumloop_23",
+						"type": "signal t_sample",
+						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+					},
+					{
+						"class": "Variable",
+						"id": "node_877",
+						"name": "sample_drumloop_24",
+						"type": "signal t_sample",
+						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+					},
+					{
+						"class": "Variable",
+						"id": "node_878",
+						"name": "index_drumloop_25",
+						"type": "signal t_sample",
+						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+					}
+				],
+				"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+			},
+			{
+				"class": "Statement",
+				"id": "node_879",
+				"inputs": [
+					{
+						"class": "Variable",
+						"id": "node_880",
+						"name": "sample_drumloop_23",
+						"type": "signal t_sample",
+						"source": "box: [out 1 $in1] => "
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_881",
+						"name": "out1",
+						"type": "signal t_sample",
+						"source": "box: [out 1 $in1] => "
+					}
+				],
+				"source": "box: [out 1 $in1] => "
+			},
+			{
+				"class": "Statement",
+				"id": "node_882",
+				"inputs": [
+					{
+						"class": "Variable",
+						"id": "node_883",
+						"name": "sample_drumloop_24",
+						"type": "signal t_sample",
+						"source": "box: [out 2 $in1] => "
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_884",
+						"name": "out2",
+						"type": "signal t_sample",
+						"source": "box: [out 2 $in1] => "
+					}
+				],
+				"source": "box: [out 2 $in1] => "
+			}
+		]
+	},
+	"source": "patcher: gen.patcher 0x7fb44a0e58d0 graph 0x6000012b6690"
+}
