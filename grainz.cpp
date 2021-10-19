@@ -33,20 +33,34 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 // The State struct contains all the state and procedures for the gendsp kernel
 typedef struct State {
 	CommonState __commonstate;
-	Data m_drumloop_1;
-	Phasor __m_phasor_2;
+	Data m_samplebufferone_1;
+	Data m_samplebuffertwo_2;
 	int __exception;
 	int vectorsize;
-	t_sample samples_to_seconds;
+	t_sample __m_carry_10;
+	t_sample __m_carry_15;
+	t_sample __m_count_13;
+	t_sample __m_count_8;
+	t_sample __m_carry_5;
+	t_sample __m_count_3;
+	t_sample __m_count_18;
 	t_sample samplerate;
+	t_sample __m_carry_20;
 	// re-initialize all member variables;
 	inline void reset(t_param __sr, int __vs) {
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
-		m_drumloop_1.reset("drumloop", ((int)153400), ((int)2));
-		samples_to_seconds = (1 / samplerate);
-		__m_phasor_2.reset(0);
+		m_samplebufferone_1.reset("samplebufferone", ((int)132300), ((int)2));
+		m_samplebuffertwo_2.reset("samplebuffertwo", ((int)132300), ((int)2));
+		__m_count_3 = 0;
+		__m_carry_5 = 0;
+		__m_count_8 = 0;
+		__m_carry_10 = 0;
+		__m_count_13 = 0;
+		__m_carry_15 = 0;
+		__m_count_18 = 0;
+		__m_carry_20 = 0;
 		genlib_reset_complete(this);
 		
 	};
@@ -54,43 +68,111 @@ typedef struct State {
 	inline int perform(t_sample ** __ins, t_sample ** __outs, int __n) {
 		vectorsize = __n;
 		const t_sample * __in1 = __ins[0];
+		const t_sample * __in2 = __ins[1];
 		t_sample * __out1 = __outs[0];
 		t_sample * __out2 = __outs[1];
 		if (__exception) {
 			return __exception;
 			
-		} else if (( (__in1 == 0) || (__out1 == 0) || (__out2 == 0) )) {
+		} else if (( (__in1 == 0) || (__in2 == 0) || (__out1 == 0) || (__out2 == 0) )) {
 			__exception = GENLIB_ERR_NULL_BUFFER;
 			return __exception;
 			
 		};
-		samples_to_seconds = (1 / samplerate);
-		int drumloop_dim = m_drumloop_1.dim;
-		int drumloop_channels = m_drumloop_1.channels;
-		bool chan_ignore_12 = ((1 < 0) || (1 >= drumloop_channels));
+		int samplebuffertwo_dim = m_samplebuffertwo_2.dim;
+		int samplebuffertwo_channels = m_samplebuffertwo_2.channels;
+		int dim_10 = samplebuffertwo_dim;
+		int samplebufferone_dim = m_samplebufferone_1.dim;
+		int samplebufferone_channels = m_samplebufferone_1.channels;
+		int dim_18 = samplebufferone_dim;
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
-			t_sample phasor_17 = __m_phasor_2(((t_sample)0.3), samples_to_seconds);
-			double sample_index_3 = (phasor_17 * (drumloop_dim - 1));
-			int index_trunc_4 = fixnan(floor(sample_index_3));
-			double index_fract_5 = (sample_index_3 - index_trunc_4);
-			int index_trunc_6 = (index_trunc_4 + 1);
-			bool index_ignore_7 = ((index_trunc_4 >= drumloop_dim) || (index_trunc_4 < 0));
-			bool index_ignore_8 = ((index_trunc_6 >= drumloop_dim) || (index_trunc_6 < 0));
-			// phase drumloop channel 1;
-			double read_drumloop_9 = (index_ignore_7 ? 0 : m_drumloop_1.read(index_trunc_4, 0));
-			double read_drumloop_10 = (index_ignore_8 ? 0 : m_drumloop_1.read(index_trunc_6, 0));
-			double readinterp_11 = linear_interp(index_fract_5, read_drumloop_9, read_drumloop_10);
-			// phase drumloop channel 2;
-			double read_drumloop_13 = ((chan_ignore_12 || index_ignore_7) ? 0 : m_drumloop_1.read(index_trunc_4, 1));
-			double read_drumloop_14 = ((chan_ignore_12 || index_ignore_8) ? 0 : m_drumloop_1.read(index_trunc_6, 1));
-			double readinterp_15 = linear_interp(index_fract_5, read_drumloop_13, read_drumloop_14);
-			t_sample sample_drumloop_23 = readinterp_11;
-			t_sample sample_drumloop_24 = readinterp_15;
-			t_sample index_drumloop_25 = sample_index_3;
-			t_sample out1 = sample_drumloop_23;
-			t_sample out2 = sample_drumloop_24;
+			const t_sample in2 = (*(__in2++));
+			__m_count_3 = (((int)0) ? 0 : (fixdenorm(__m_count_3 + ((int)1))));
+			int carry_4 = 0;
+			if ((((int)0) != 0)) {
+				__m_count_3 = 0;
+				__m_carry_5 = 0;
+				
+			} else if (((dim_10 > 0) && (__m_count_3 >= dim_10))) {
+				int wraps_6 = (__m_count_3 / dim_10);
+				__m_carry_5 = (__m_carry_5 + wraps_6);
+				__m_count_3 = (__m_count_3 - (wraps_6 * dim_10));
+				carry_4 = 1;
+				
+			};
+			int counter_13 = __m_count_3;
+			int counter_14 = carry_4;
+			int counter_15 = __m_carry_5;
+			bool index_ignore_7 = ((counter_13 >= samplebuffertwo_dim) || (counter_13 < 0));
+			if ((!index_ignore_7)) {
+				m_samplebuffertwo_2.write(in2, counter_13, 0);
+				
+			};
+			__m_count_8 = (((int)0) ? 0 : (fixdenorm(__m_count_8 + ((int)1))));
+			int carry_9 = 0;
+			if ((((int)0) != 0)) {
+				__m_count_8 = 0;
+				__m_carry_10 = 0;
+				
+			} else if (((dim_10 > 0) && (__m_count_8 >= dim_10))) {
+				int wraps_11 = (__m_count_8 / dim_10);
+				__m_carry_10 = (__m_carry_10 + wraps_11);
+				__m_count_8 = (__m_count_8 - (wraps_11 * dim_10));
+				carry_9 = 1;
+				
+			};
+			int counter_3 = __m_count_8;
+			int counter_4 = carry_9;
+			int counter_5 = __m_carry_10;
+			bool index_ignore_12 = ((counter_3 >= samplebuffertwo_dim) || (counter_3 < 0));
+			// samples samplebuffertwo channel 1;
+			t_sample sample_samplebuffertwo_6 = (index_ignore_12 ? 0 : m_samplebuffertwo_2.read(counter_3, 0));
+			t_sample index_samplebuffertwo_7 = counter_3;
+			t_sample out2 = sample_samplebuffertwo_6;
+			__m_count_13 = (((int)0) ? 0 : (fixdenorm(__m_count_13 + ((int)1))));
+			int carry_14 = 0;
+			if ((((int)0) != 0)) {
+				__m_count_13 = 0;
+				__m_carry_15 = 0;
+				
+			} else if (((dim_18 > 0) && (__m_count_13 >= dim_18))) {
+				int wraps_16 = (__m_count_13 / dim_18);
+				__m_carry_15 = (__m_carry_15 + wraps_16);
+				__m_count_13 = (__m_count_13 - (wraps_16 * dim_18));
+				carry_14 = 1;
+				
+			};
+			int counter_28 = __m_count_13;
+			int counter_29 = carry_14;
+			int counter_30 = __m_carry_15;
+			bool index_ignore_17 = ((counter_28 >= samplebufferone_dim) || (counter_28 < 0));
+			if ((!index_ignore_17)) {
+				m_samplebufferone_1.write(in1, counter_28, 0);
+				
+			};
+			__m_count_18 = (((int)0) ? 0 : (fixdenorm(__m_count_18 + ((int)1))));
+			int carry_19 = 0;
+			if ((((int)0) != 0)) {
+				__m_count_18 = 0;
+				__m_carry_20 = 0;
+				
+			} else if (((dim_18 > 0) && (__m_count_18 >= dim_18))) {
+				int wraps_21 = (__m_count_18 / dim_18);
+				__m_carry_20 = (__m_carry_20 + wraps_21);
+				__m_count_18 = (__m_count_18 - (wraps_21 * dim_18));
+				carry_19 = 1;
+				
+			};
+			int counter_21 = __m_count_18;
+			int counter_22 = carry_19;
+			int counter_23 = __m_carry_20;
+			bool index_ignore_22 = ((counter_21 >= samplebufferone_dim) || (counter_21 < 0));
+			// samples samplebufferone channel 1;
+			t_sample sample_samplebufferone_24 = (index_ignore_22 ? 0 : m_samplebufferone_1.read(counter_21, 0));
+			t_sample index_samplebufferone_25 = counter_21;
+			t_sample out1 = sample_samplebufferone_24;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
@@ -99,8 +181,11 @@ typedef struct State {
 		return __exception;
 		
 	};
-	inline void set_drumloop(void * _value) {
-		m_drumloop_1.setbuffer(_value);
+	inline void set_samplebufferone(void * _value) {
+		m_samplebufferone_1.setbuffer(_value);
+	};
+	inline void set_samplebuffertwo(void * _value) {
+		m_samplebuffertwo_2.setbuffer(_value);
 	};
 	
 } State;
@@ -112,16 +197,16 @@ typedef struct State {
 
 /// Number of signal inputs and outputs
 
-int gen_kernel_numins = 1;
+int gen_kernel_numins = 2;
 int gen_kernel_numouts = 2;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
-int num_params() { return 1; }
+int num_params() { return 2; }
 
 /// Assistive lables for the signal inputs and outputs
 
-const char *gen_kernel_innames[] = { "in1" };
+const char *gen_kernel_innames[] = { "in1", "in2" };
 const char *gen_kernel_outnames[] = { "out1", "out2" };
 
 /// Invoke the signal process of a State object
@@ -143,7 +228,8 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: self->set_drumloop(ref); break;
+		case 0: self->set_samplebufferone(ref); break;
+		case 1: self->set_samplebuffertwo(ref); break;
 		
 		default: break;
 	}
@@ -154,6 +240,7 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
+		
 		
 		
 		default: break;
@@ -235,11 +322,25 @@ void *create(t_param sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
-	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(1 * sizeof(ParamInfo));
-	self->__commonstate.numparams = 1;
-	// initialize parameter 0 ("m_drumloop_1")
+	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(2 * sizeof(ParamInfo));
+	self->__commonstate.numparams = 2;
+	// initialize parameter 0 ("m_samplebufferone_1")
 	pi = self->__commonstate.params + 0;
-	pi->name = "drumloop";
+	pi->name = "samplebufferone";
+	pi->paramtype = GENLIB_PARAMTYPE_SYM;
+	pi->defaultvalue = 0.;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = false;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 1 ("m_samplebuffertwo_2")
+	pi = self->__commonstate.params + 1;
+	pi->name = "samplebuffertwo";
 	pi->paramtype = GENLIB_PARAMTYPE_SYM;
 	pi->defaultvalue = 0.;
 	pi->defaultref = 0;

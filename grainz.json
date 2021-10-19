@@ -1,9 +1,16 @@
 {
 	"class": "Module",
-	"id": "node_852",
-	"inlets": {
-		
-	},
+	"id": "node_5135",
+	"inlets": [
+		{
+			"assist": "in1",
+			"default": 0
+		},
+		{
+			"assist": "in2",
+			"default": 0
+		}
+	],
 	"outlets": [
 		{
 			"assist": "out1"
@@ -20,28 +27,28 @@
 	},
 	"block": {
 		"class": "Block",
-		"id": "node_886",
+		"id": "node_5264",
 		"children": [
 			{
 				"class": "Declaration",
-				"id": "node_854",
-				"name": "drumloop",
+				"id": "node_5137",
+				"name": "samplebufferone",
 				"inputs": [
 					{
 						"class": "Constant",
-						"id": "node_855",
-						"value": "153400",
-						"eval": 153400,
+						"id": "node_5138",
+						"value": "132300",
+						"eval": 132300,
 						"type": "constant int",
-						"source": "box: [data drumloop 153400 2] => drumloop_dim_26,drumloop_chans_27"
+						"source": "box: [data samplebufferone 132300 2] => samplebufferone_dim_16,samplebufferone_chans_17"
 					},
 					{
 						"class": "Constant",
-						"id": "node_856",
+						"id": "node_5139",
 						"value": "2",
 						"eval": 2,
 						"type": "constant int",
-						"source": "box: [data drumloop 153400 2] => drumloop_dim_26,drumloop_chans_27"
+						"source": "box: [data samplebufferone 132300 2] => samplebufferone_dim_16,samplebufferone_chans_17"
 					}
 				],
 				"attributes": {
@@ -49,160 +56,339 @@
 				},
 				"type": "init Data",
 				"typename": "Data",
-				"source": "box: [data drumloop 153400 2] => drumloop_dim_26,drumloop_chans_27"
+				"source": "box: [data samplebufferone 132300 2] => samplebufferone_dim_16,samplebufferone_chans_17"
+			},
+			{
+				"class": "Declaration",
+				"id": "node_5140",
+				"name": "samplebuffertwo",
+				"inputs": [
+					{
+						"class": "Constant",
+						"id": "node_5141",
+						"value": "132300",
+						"eval": 132300,
+						"type": "constant int",
+						"source": "box: [data samplebuffertwo 132300 2] => samplebuffertwo_dim_8,samplebuffertwo_chans_9"
+					},
+					{
+						"class": "Constant",
+						"id": "node_5142",
+						"value": "2",
+						"eval": 2,
+						"type": "constant int",
+						"source": "box: [data samplebuffertwo 132300 2] => samplebuffertwo_dim_8,samplebuffertwo_chans_9"
+					}
+				],
+				"attributes": {
+					
+				},
+				"type": "init Data",
+				"typename": "Data",
+				"source": "box: [data samplebuffertwo 132300 2] => samplebuffertwo_dim_8,samplebuffertwo_chans_9"
 			},
 			{
 				"class": "Statement",
-				"id": "node_865",
+				"id": "node_5175",
 				"inputs": [
 					{
 						"class": "Expression",
-						"id": "node_866",
-						"operator": "phasor",
+						"id": "node_5176",
+						"operator": "dim",
 						"inputs": [
 							{
-								"class": "Constant",
-								"id": "node_867",
-								"value": "0.3",
-								"eval": 0.3,
-								"type": "constant t_sample",
-								"source": "box: [phasor 0.3 $in1] => phasor_17"
-							},
-							{
-								"class": "Constant",
-								"id": "node_868",
-								"value": "0",
-								"eval": 0,
-								"type": "constant int",
-								"source": "box: [phasor 0.3 $in1] => phasor_17"
+								"class": "Variable",
+								"id": "node_5177",
+								"name": "samplebuffertwo",
+								"type": "init Data",
+								"source": "box: [dim samplebuffertwo] => dim_10"
 							}
 						],
 						"attributes": {
 							
 						},
-						"type": "signal t_sample",
-						"source": "box: [phasor 0.3 $in1] => phasor_17"
+						"type": "control int",
+						"source": "box: [dim samplebuffertwo] => dim_10"
 					}
 				],
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_869",
-						"name": "phasor_17",
-						"type": "signal t_sample",
-						"source": "box: [phasor 0.3 $in1] => phasor_17"
+						"id": "node_5178",
+						"name": "dim_10",
+						"type": "control int",
+						"source": "box: [dim samplebuffertwo] => dim_10"
 					}
 				],
-				"source": "box: [phasor 0.3 $in1] => phasor_17"
+				"source": "box: [dim samplebuffertwo] => dim_10"
 			},
 			{
 				"class": "Statement",
-				"id": "node_870",
+				"id": "node_5185",
 				"inputs": [
 					{
 						"class": "Expression",
-						"id": "node_871",
-						"operator": "sample",
+						"id": "node_5186",
+						"operator": "counter",
 						"inputs": [
 							{
-								"class": "Variable",
-								"id": "node_872",
-								"name": "drumloop",
-								"type": "init Data",
-								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
-							},
-							{
-								"class": "Variable",
-								"id": "node_873",
-								"name": "phasor_17",
-								"type": "signal t_sample",
-								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+								"class": "Constant",
+								"id": "node_5273",
+								"value": 1,
+								"eval": 1,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
 							},
 							{
 								"class": "Constant",
-								"id": "node_874",
+								"id": "node_5188",
 								"value": "0",
 								"eval": 0,
 								"type": "constant int",
-								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+								"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+							},
+							{
+								"class": "Variable",
+								"id": "node_5265",
+								"name": "dim_10",
+								"type": "control int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5190",
+						"name": "counter_13",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5191",
+						"name": "counter_14",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5192",
+						"name": "counter_15",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+					}
+				],
+				"source": "box: [counter $in1 $in2 $in3] => counter_13,counter_14,counter_15"
+			},
+			{
+				"class": "Statement",
+				"id": "node_5193",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5194",
+						"operator": "poke",
+						"inputs": [
+							{
+								"class": "Variable",
+								"id": "node_5195",
+								"name": "samplebuffertwo",
+								"type": "init Data",
+								"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Variable",
+								"id": "node_5196",
+								"name": "in2",
+								"type": "signal t_sample",
+								"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Variable",
+								"id": "node_5197",
+								"name": "counter_13",
+								"type": "signal int",
+								"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Constant",
+								"id": "node_5198",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Constant",
+								"id": "node_5199",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal void",
+						"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+					}
+				],
+				"outputs": {
+					
+				},
+				"source": "box: [poke samplebuffertwo $in1 $in2 $in3 $in4] => "
+			},
+			{
+				"class": "Statement",
+				"id": "node_5200",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5201",
+						"operator": "counter",
+						"inputs": [
+							{
+								"class": "Constant",
+								"id": "node_5274",
+								"value": 1,
+								"eval": 1,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+							},
+							{
+								"class": "Constant",
+								"id": "node_5203",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+							},
+							{
+								"class": "Variable",
+								"id": "node_5266",
+								"name": "dim_10",
+								"type": "control int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5205",
+						"name": "counter_3",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5206",
+						"name": "counter_4",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5207",
+						"name": "counter_5",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+					}
+				],
+				"source": "box: [counter $in1 $in2 $in3] => counter_3,counter_4,counter_5"
+			},
+			{
+				"class": "Statement",
+				"id": "node_5208",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5209",
+						"operator": "peek",
+						"inputs": [
+							{
+								"class": "Variable",
+								"id": "node_5210",
+								"name": "samplebuffertwo",
+								"type": "init Data",
+								"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
+							},
+							{
+								"class": "Variable",
+								"id": "node_5211",
+								"name": "counter_3",
+								"type": "signal int",
+								"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
+							},
+							{
+								"class": "Constant",
+								"id": "node_5212",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 							}
 						],
 						"attributes": {
 							"channels": {
 								"class": "Attribute",
-								"id": "node_875",
+								"id": "node_5213",
 								"name": "channels",
 								"value": {
 									"class": "Constant",
-									"id": "node_807",
-									"value": "2",
-									"eval": 2,
+									"id": "node_80",
+									"value": "1",
+									"eval": 1,
 									"type": "constant int",
-									"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+									"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 								},
-								"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+								"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 							}
 						},
 						"type": "signal t_sample",
-						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+						"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 					}
 				],
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_876",
-						"name": "sample_drumloop_23",
+						"id": "node_5214",
+						"name": "sample_samplebuffertwo_6",
 						"type": "signal t_sample",
-						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+						"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 					},
 					{
 						"class": "Variable",
-						"id": "node_877",
-						"name": "sample_drumloop_24",
+						"id": "node_5215",
+						"name": "index_samplebuffertwo_7",
 						"type": "signal t_sample",
-						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
-					},
-					{
-						"class": "Variable",
-						"id": "node_878",
-						"name": "index_drumloop_25",
-						"type": "signal t_sample",
-						"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+						"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 					}
 				],
-				"source": "box: [sample drumloop $in1 $in2 @channels 2] => sample_drumloop_23,sample_drumloop_24,index_drumloop_25"
+				"source": "box: [peek samplebuffertwo $in1 $in2 @channels 1] => sample_samplebuffertwo_6,index_samplebuffertwo_7"
 			},
 			{
 				"class": "Statement",
-				"id": "node_879",
+				"id": "node_5216",
 				"inputs": [
 					{
 						"class": "Variable",
-						"id": "node_880",
-						"name": "sample_drumloop_23",
-						"type": "signal t_sample",
-						"source": "box: [out 1 $in1] => "
-					}
-				],
-				"outputs": [
-					{
-						"class": "Variable",
-						"id": "node_881",
-						"name": "out1",
-						"type": "signal t_sample",
-						"source": "box: [out 1 $in1] => "
-					}
-				],
-				"source": "box: [out 1 $in1] => "
-			},
-			{
-				"class": "Statement",
-				"id": "node_882",
-				"inputs": [
-					{
-						"class": "Variable",
-						"id": "node_883",
-						"name": "sample_drumloop_24",
+						"id": "node_5217",
+						"name": "sample_samplebuffertwo_6",
 						"type": "signal t_sample",
 						"source": "box: [out 2 $in1] => "
 					}
@@ -210,15 +396,332 @@
 				"outputs": [
 					{
 						"class": "Variable",
-						"id": "node_884",
+						"id": "node_5218",
 						"name": "out2",
 						"type": "signal t_sample",
 						"source": "box: [out 2 $in1] => "
 					}
 				],
 				"source": "box: [out 2 $in1] => "
+			},
+			{
+				"class": "Statement",
+				"id": "node_5219",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5220",
+						"operator": "dim",
+						"inputs": [
+							{
+								"class": "Variable",
+								"id": "node_5221",
+								"name": "samplebufferone",
+								"type": "init Data",
+								"source": "box: [dim samplebufferone] => dim_18"
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "control int",
+						"source": "box: [dim samplebufferone] => dim_18"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5222",
+						"name": "dim_18",
+						"type": "control int",
+						"source": "box: [dim samplebufferone] => dim_18"
+					}
+				],
+				"source": "box: [dim samplebufferone] => dim_18"
+			},
+			{
+				"class": "Statement",
+				"id": "node_5229",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5230",
+						"operator": "counter",
+						"inputs": [
+							{
+								"class": "Constant",
+								"id": "node_5275",
+								"value": 1,
+								"eval": 1,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+							},
+							{
+								"class": "Constant",
+								"id": "node_5232",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+							},
+							{
+								"class": "Variable",
+								"id": "node_5267",
+								"name": "dim_18",
+								"type": "control int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5234",
+						"name": "counter_28",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5235",
+						"name": "counter_29",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5236",
+						"name": "counter_30",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+					}
+				],
+				"source": "box: [counter $in1 $in2 $in3] => counter_28,counter_29,counter_30"
+			},
+			{
+				"class": "Statement",
+				"id": "node_5237",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5238",
+						"operator": "poke",
+						"inputs": [
+							{
+								"class": "Variable",
+								"id": "node_5239",
+								"name": "samplebufferone",
+								"type": "init Data",
+								"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Variable",
+								"id": "node_5240",
+								"name": "in1",
+								"type": "signal t_sample",
+								"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Variable",
+								"id": "node_5241",
+								"name": "counter_28",
+								"type": "signal int",
+								"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Constant",
+								"id": "node_5242",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+							},
+							{
+								"class": "Constant",
+								"id": "node_5243",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal void",
+						"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+					}
+				],
+				"outputs": {
+					
+				},
+				"source": "box: [poke samplebufferone $in1 $in2 $in3 $in4] => "
+			},
+			{
+				"class": "Statement",
+				"id": "node_5244",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5245",
+						"operator": "counter",
+						"inputs": [
+							{
+								"class": "Constant",
+								"id": "node_5276",
+								"value": 1,
+								"eval": 1,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+							},
+							{
+								"class": "Constant",
+								"id": "node_5247",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+							},
+							{
+								"class": "Variable",
+								"id": "node_5268",
+								"name": "dim_18",
+								"type": "control int",
+								"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+							}
+						],
+						"attributes": {
+							
+						},
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5249",
+						"name": "counter_21",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5250",
+						"name": "counter_22",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5251",
+						"name": "counter_23",
+						"type": "signal int",
+						"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+					}
+				],
+				"source": "box: [counter $in1 $in2 $in3] => counter_21,counter_22,counter_23"
+			},
+			{
+				"class": "Statement",
+				"id": "node_5252",
+				"inputs": [
+					{
+						"class": "Expression",
+						"id": "node_5253",
+						"operator": "peek",
+						"inputs": [
+							{
+								"class": "Variable",
+								"id": "node_5254",
+								"name": "samplebufferone",
+								"type": "init Data",
+								"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+							},
+							{
+								"class": "Variable",
+								"id": "node_5255",
+								"name": "counter_21",
+								"type": "signal int",
+								"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+							},
+							{
+								"class": "Constant",
+								"id": "node_5256",
+								"value": "0",
+								"eval": 0,
+								"type": "constant int",
+								"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+							}
+						],
+						"attributes": {
+							"channels": {
+								"class": "Attribute",
+								"id": "node_5257",
+								"name": "channels",
+								"value": {
+									"class": "Constant",
+									"id": "node_125",
+									"value": "1",
+									"eval": 1,
+									"type": "constant int",
+									"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+								},
+								"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+							}
+						},
+						"type": "signal t_sample",
+						"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5258",
+						"name": "sample_samplebufferone_24",
+						"type": "signal t_sample",
+						"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+					},
+					{
+						"class": "Variable",
+						"id": "node_5259",
+						"name": "index_samplebufferone_25",
+						"type": "signal t_sample",
+						"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+					}
+				],
+				"source": "box: [peek samplebufferone $in1 $in2 @channels 1] => sample_samplebufferone_24,index_samplebufferone_25"
+			},
+			{
+				"class": "Statement",
+				"id": "node_5260",
+				"inputs": [
+					{
+						"class": "Variable",
+						"id": "node_5261",
+						"name": "sample_samplebufferone_24",
+						"type": "signal t_sample",
+						"source": "box: [out 1 $in1] => "
+					}
+				],
+				"outputs": [
+					{
+						"class": "Variable",
+						"id": "node_5262",
+						"name": "out1",
+						"type": "signal t_sample",
+						"source": "box: [out 1 $in1] => "
+					}
+				],
+				"source": "box: [out 1 $in1] => "
 			}
 		]
 	},
-	"source": "patcher: gen.patcher 0x7fb44a0e58d0 graph 0x6000012b6690"
+	"source": "patcher: gen.patcher 0x7fdb3ef99900 graph 0x600000d97960"
 }
