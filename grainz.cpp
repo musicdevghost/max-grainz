@@ -33,34 +33,60 @@ static const int GENLIB_LOOPCOUNT_BAIL = 100000;
 // The State struct contains all the state and procedures for the gendsp kernel
 typedef struct State {
 	CommonState __commonstate;
-	Data m_samplebufferone_1;
-	Data m_samplebuffertwo_2;
+	Change __m_change_19;
+	Data m_envhanning_11;
+	Data m_samplebuffertwo_10;
+	Data m_envad_3;
+	Data m_samplebufferone_9;
+	Delta __m_delta_18;
+	Phasor __m_phasor_17;
 	int __exception;
 	int vectorsize;
-	t_sample __m_carry_10;
-	t_sample __m_carry_15;
-	t_sample __m_count_13;
-	t_sample __m_count_8;
-	t_sample __m_carry_5;
-	t_sample __m_count_3;
-	t_sample __m_count_18;
+	t_sample m_ctrl4_density_6;
 	t_sample samplerate;
-	t_sample __m_carry_20;
+	t_sample m_history_1;
+	t_sample __m_latch_20;
+	t_sample __m_carry_23;
+	t_sample __m_count_21;
+	t_sample __m_latch_34;
+	t_sample m_ctrl3_spray_5;
+	t_sample samples_to_seconds;
+	t_sample __m_count_12;
+	t_sample m_gate1_rec_8;
+	t_sample m_ctrl1_position_7;
+	t_sample __m_carry_14;
+	t_sample m_gain_4;
+	t_sample m_ctrl2_size_2;
+	t_sample __m_latch_35;
+	t_sample __m_latch_36;
 	// re-initialize all member variables;
 	inline void reset(t_param __sr, int __vs) {
 		__exception = 0;
 		vectorsize = __vs;
 		samplerate = __sr;
-		m_samplebufferone_1.reset("samplebufferone", ((int)132300), ((int)2));
-		m_samplebuffertwo_2.reset("samplebuffertwo", ((int)132300), ((int)2));
-		__m_count_3 = 0;
-		__m_carry_5 = 0;
-		__m_count_8 = 0;
-		__m_carry_10 = 0;
-		__m_count_13 = 0;
-		__m_carry_15 = 0;
-		__m_count_18 = 0;
-		__m_carry_20 = 0;
+		m_history_1 = ((int)0);
+		m_ctrl2_size_2 = ((int)0);
+		m_envad_3.reset("envad", ((int)1024), ((int)1));
+		m_gain_4 = ((int)1);
+		m_ctrl3_spray_5 = ((int)0);
+		m_ctrl4_density_6 = ((int)0);
+		m_ctrl1_position_7 = ((int)0);
+		m_gate1_rec_8 = ((int)0);
+		m_samplebufferone_9.reset("samplebufferone", ((int)132300), ((int)2));
+		m_samplebuffertwo_10.reset("samplebuffertwo", ((int)132300), ((int)2));
+		m_envhanning_11.reset("envhanning", ((int)1024), ((int)1));
+		__m_count_12 = 0;
+		__m_carry_14 = 0;
+		samples_to_seconds = (1 / samplerate);
+		__m_phasor_17.reset(0);
+		__m_delta_18.reset(0);
+		__m_change_19.reset(0);
+		__m_latch_20 = 0;
+		__m_count_21 = 0;
+		__m_carry_23 = 0;
+		__m_latch_34 = 0;
+		__m_latch_35 = 0;
+		__m_latch_36 = 0;
 		genlib_reset_complete(this);
 		
 	};
@@ -68,124 +94,181 @@ typedef struct State {
 	inline int perform(t_sample ** __ins, t_sample ** __outs, int __n) {
 		vectorsize = __n;
 		const t_sample * __in1 = __ins[0];
-		const t_sample * __in2 = __ins[1];
 		t_sample * __out1 = __outs[0];
 		t_sample * __out2 = __outs[1];
+		t_sample * __out3 = __outs[2];
+		t_sample * __out4 = __outs[3];
 		if (__exception) {
 			return __exception;
 			
-		} else if (( (__in1 == 0) || (__in2 == 0) || (__out1 == 0) || (__out2 == 0) )) {
+		} else if (( (__in1 == 0) || (__out1 == 0) || (__out2 == 0) || (__out3 == 0) || (__out4 == 0) )) {
 			__exception = GENLIB_ERR_NULL_BUFFER;
 			return __exception;
 			
 		};
-		int samplebuffertwo_dim = m_samplebuffertwo_2.dim;
-		int samplebuffertwo_channels = m_samplebuffertwo_2.channels;
-		int dim_10 = samplebuffertwo_dim;
-		int samplebufferone_dim = m_samplebufferone_1.dim;
-		int samplebufferone_channels = m_samplebufferone_1.channels;
-		int dim_18 = samplebufferone_dim;
+		t_sample sub_1990 = (m_gain_4 - ((int)0));
+		t_sample scale_1987 = ((safepow((sub_1990 * ((t_sample)1)), ((int)1)) * ((int)10)) + ((int)0));
+		int gt_1800 = (m_gate1_rec_8 > ((t_sample)0.5));
+		int switch_1801 = (gt_1800 ? ((int)0) : ((int)1));
+		int samplebufferone_dim = m_samplebufferone_9.dim;
+		int samplebufferone_channels = m_samplebufferone_9.channels;
+		int dim_1862 = samplebufferone_dim;
+		t_sample sub_1994 = (m_ctrl2_size_2 - ((int)0));
+		t_sample scale_1991 = ((safepow((sub_1994 * ((t_sample)1)), ((int)1)) * ((int)1000)) + ((int)0));
+		t_sample scale_1834 = scale_1991;
+		t_sample mstosamps_1833 = (scale_1834 * (samplerate * 0.001));
+		t_sample sub_1998 = (m_ctrl4_density_6 - ((int)0));
+		t_sample scale_1995 = ((safepow((sub_1998 * ((t_sample)1)), ((int)1)) * ((int)15)) + ((int)0));
+		t_sample scale_1847 = scale_1995;
+		samples_to_seconds = (1 / samplerate);
+		int envhanning_dim = m_envhanning_11.dim;
+		int envhanning_channels = m_envhanning_11.channels;
+		int sub_1814 = (((int)1) - dim_1862);
+		int orange_2001 = (dim_1862 - ((int)0));
+		t_sample sub_2002 = (m_ctrl1_position_7 - ((int)0));
+		t_sample scale_1999 = ((safepow((sub_2002 * ((t_sample)1)), ((int)1)) * orange_2001) + ((int)0));
+		int orange_2005 = (dim_1862 - ((int)0));
+		t_sample sub_2006 = (m_ctrl3_spray_5 - ((int)0));
+		t_sample scale_2003 = ((safepow((sub_2006 * ((t_sample)1)), ((int)1)) * orange_2005) + ((int)0));
 		// the main sample loop;
 		while ((__n--)) {
 			const t_sample in1 = (*(__in1++));
-			const t_sample in2 = (*(__in2++));
-			__m_count_3 = (((int)0) ? 0 : (fixdenorm(__m_count_3 + ((int)1))));
-			int carry_4 = 0;
+			t_sample out3 = in1;
+			t_sample out4 = in1;
+			int gt_1794 = (m_history_1 > ((t_sample)0.5));
+			__m_count_12 = (((int)0) ? 0 : (fixdenorm(__m_count_12 + ((int)1))));
+			int carry_13 = 0;
 			if ((((int)0) != 0)) {
-				__m_count_3 = 0;
-				__m_carry_5 = 0;
+				__m_count_12 = 0;
+				__m_carry_14 = 0;
 				
-			} else if (((dim_10 > 0) && (__m_count_3 >= dim_10))) {
-				int wraps_6 = (__m_count_3 / dim_10);
-				__m_carry_5 = (__m_carry_5 + wraps_6);
-				__m_count_3 = (__m_count_3 - (wraps_6 * dim_10));
-				carry_4 = 1;
-				
-			};
-			int counter_13 = __m_count_3;
-			int counter_14 = carry_4;
-			int counter_15 = __m_carry_5;
-			bool index_ignore_7 = ((counter_13 >= samplebuffertwo_dim) || (counter_13 < 0));
-			if ((!index_ignore_7)) {
-				m_samplebuffertwo_2.write(in2, counter_13, 0);
+			} else if (((dim_1862 > 0) && (__m_count_12 >= dim_1862))) {
+				int wraps_15 = (__m_count_12 / dim_1862);
+				__m_carry_14 = (__m_carry_14 + wraps_15);
+				__m_count_12 = (__m_count_12 - (wraps_15 * dim_1862));
+				carry_13 = 1;
 				
 			};
-			__m_count_8 = (((int)0) ? 0 : (fixdenorm(__m_count_8 + ((int)1))));
-			int carry_9 = 0;
-			if ((((int)0) != 0)) {
-				__m_count_8 = 0;
-				__m_carry_10 = 0;
-				
-			} else if (((dim_10 > 0) && (__m_count_8 >= dim_10))) {
-				int wraps_11 = (__m_count_8 / dim_10);
-				__m_carry_10 = (__m_carry_10 + wraps_11);
-				__m_count_8 = (__m_count_8 - (wraps_11 * dim_10));
-				carry_9 = 1;
+			int counter_1870 = __m_count_12;
+			int counter_1871 = carry_13;
+			int counter_1872 = __m_carry_14;
+			int mul_1797 = (counter_1870 * switch_1801);
+			bool index_ignore_16 = ((mul_1797 >= samplebufferone_dim) || (mul_1797 < 0));
+			if ((!index_ignore_16)) {
+				m_samplebufferone_9.write(in1, mul_1797, 0);
 				
 			};
-			int counter_3 = __m_count_8;
-			int counter_4 = carry_9;
-			int counter_5 = __m_carry_10;
-			bool index_ignore_12 = ((counter_3 >= samplebuffertwo_dim) || (counter_3 < 0));
-			// samples samplebuffertwo channel 1;
-			t_sample sample_samplebuffertwo_6 = (index_ignore_12 ? 0 : m_samplebuffertwo_2.read(counter_3, 0));
-			t_sample index_samplebuffertwo_7 = counter_3;
-			t_sample out2 = sample_samplebuffertwo_6;
-			__m_count_13 = (((int)0) ? 0 : (fixdenorm(__m_count_13 + ((int)1))));
-			int carry_14 = 0;
-			if ((((int)0) != 0)) {
-				__m_count_13 = 0;
-				__m_carry_15 = 0;
+			t_sample phasor_1850 = __m_phasor_17(scale_1847, samples_to_seconds);
+			t_sample delta_1849 = __m_delta_18(phasor_1850);
+			int lt_1848 = (delta_1849 < ((int)0));
+			int gen_1851 = lt_1848;
+			int int_1829 = int(gen_1851);
+			int change_1830 = __m_change_19(int_1829);
+			int eqp_1831 = ((int_1829 == change_1830) ? int_1829 : 0);
+			int gen_1832 = eqp_1831;
+			int trigger_1818 = gen_1832;
+			int trigger_1792 = trigger_1818;
+			int switch_1795 = (gt_1794 ? ((int)0) : trigger_1792);
+			int trigger_1825 = trigger_1818;
+			__m_latch_20 = ((trigger_1825 != 0) ? mstosamps_1833 : __m_latch_20);
+			t_sample latch_1826 = __m_latch_20;
+			t_sample size_1835 = latch_1826;
+			t_sample size_1854 = size_1835;
+			__m_count_21 = (switch_1795 ? 0 : (fixdenorm(__m_count_21 + m_history_1)));
+			int carry_22 = 0;
+			if ((switch_1795 != 0)) {
+				__m_count_21 = 0;
+				__m_carry_23 = 0;
 				
-			} else if (((dim_18 > 0) && (__m_count_13 >= dim_18))) {
-				int wraps_16 = (__m_count_13 / dim_18);
-				__m_carry_15 = (__m_carry_15 + wraps_16);
-				__m_count_13 = (__m_count_13 - (wraps_16 * dim_18));
-				carry_14 = 1;
-				
-			};
-			int counter_28 = __m_count_13;
-			int counter_29 = carry_14;
-			int counter_30 = __m_carry_15;
-			bool index_ignore_17 = ((counter_28 >= samplebufferone_dim) || (counter_28 < 0));
-			if ((!index_ignore_17)) {
-				m_samplebufferone_1.write(in1, counter_28, 0);
-				
-			};
-			__m_count_18 = (((int)0) ? 0 : (fixdenorm(__m_count_18 + ((int)1))));
-			int carry_19 = 0;
-			if ((((int)0) != 0)) {
-				__m_count_18 = 0;
-				__m_carry_20 = 0;
-				
-			} else if (((dim_18 > 0) && (__m_count_18 >= dim_18))) {
-				int wraps_21 = (__m_count_18 / dim_18);
-				__m_carry_20 = (__m_carry_20 + wraps_21);
-				__m_count_18 = (__m_count_18 - (wraps_21 * dim_18));
-				carry_19 = 1;
+			} else if (((size_1854 > 0) && (__m_count_21 >= size_1854))) {
+				int wraps_24 = (__m_count_21 / size_1854);
+				__m_carry_23 = (__m_carry_23 + wraps_24);
+				__m_count_21 = (__m_count_21 - (wraps_24 * size_1854));
+				carry_22 = 1;
 				
 			};
-			int counter_21 = __m_count_18;
-			int counter_22 = carry_19;
-			int counter_23 = __m_carry_20;
-			bool index_ignore_22 = ((counter_21 >= samplebufferone_dim) || (counter_21 < 0));
+			t_sample counter_1863 = __m_count_21;
+			int counter_1864 = carry_22;
+			int counter_1865 = __m_carry_23;
+			t_sample sub_1841 = (size_1854 - ((int)1));
+			int lt_1842 = (counter_1863 < sub_1841);
+			t_sample div_1836 = safediv(counter_1863, size_1835);
+			double sample_index_25 = (div_1836 * (envhanning_dim - 1));
+			int index_trunc_26 = fixnan(floor(sample_index_25));
+			double index_fract_27 = (sample_index_25 - index_trunc_26);
+			int index_trunc_28 = (index_trunc_26 + 1);
+			bool index_ignore_29 = ((index_trunc_26 >= envhanning_dim) || (index_trunc_26 < 0));
+			bool index_ignore_30 = ((index_trunc_28 >= envhanning_dim) || (index_trunc_28 < 0));
+			// phase envhanning channel 1;
+			double read_envhanning_31 = (index_ignore_29 ? 0 : m_envhanning_11.read(index_trunc_26, 0));
+			double read_envhanning_32 = (index_ignore_30 ? 0 : m_envhanning_11.read(index_trunc_28, 0));
+			double readinterp_33 = linear_interp(index_fract_27, read_envhanning_31, read_envhanning_32);
+			t_sample sample_envhanning_1944 = readinterp_33;
+			t_sample index_envhanning_1945 = sample_index_25;
+			__m_latch_34 = ((trigger_1818 != 0) ? scale_1999 : __m_latch_34);
+			t_sample latch_1828 = __m_latch_34;
+			t_sample add_1853 = (counter_1863 + latch_1828);
+			__m_latch_35 = ((trigger_1818 != 0) ? scale_2003 : __m_latch_35);
+			t_sample latch_1822 = __m_latch_35;
+			t_sample noise_1820 = noise();
+			__m_latch_36 = ((trigger_1818 != 0) ? noise_1820 : __m_latch_36);
+			t_sample latch_1819 = __m_latch_36;
+			t_sample mul_1817 = (latch_1822 * latch_1819);
+			t_sample clamp_1816 = ((mul_1817 <= sub_1814) ? sub_1814 : ((mul_1817 >= dim_1862) ? dim_1862 : mul_1817));
+			t_sample add_1812 = (add_1853 + clamp_1816);
+			int index_trunc_37 = fixnan(floor(add_1812));
+			int index_wrap_38 = ((index_trunc_37 < 0) ? ((samplebufferone_dim - 1) + ((index_trunc_37 + 1) % samplebufferone_dim)) : (index_trunc_37 % samplebufferone_dim));
 			// samples samplebufferone channel 1;
-			t_sample sample_samplebufferone_24 = (index_ignore_22 ? 0 : m_samplebufferone_1.read(counter_21, 0));
-			t_sample index_samplebufferone_25 = counter_21;
-			t_sample out1 = sample_samplebufferone_24;
+			t_sample sample_samplebufferone_1866 = m_samplebufferone_9.read(index_wrap_38, 0);
+			t_sample index_samplebufferone_1867 = add_1812;
+			t_sample mul_1837 = (sample_samplebufferone_1866 * sample_envhanning_1944);
+			t_sample mul_1805 = (mul_1837 * scale_1987);
+			t_sample tanh_1802 = tanh(mul_1805);
+			t_sample out1 = tanh_1802;
+			t_sample mul_1807 = (mul_1837 * scale_1987);
+			t_sample tanh_1803 = tanh(mul_1807);
+			t_sample out2 = tanh_1803;
+			t_sample history_1840_next_1946 = fixdenorm(lt_1842);
+			m_history_1 = history_1840_next_1946;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
+			(*(__out3++)) = out3;
+			(*(__out4++)) = out4;
 			
 		};
 		return __exception;
 		
 	};
+	inline void set_ctrl2_size(t_param _value) {
+		m_ctrl2_size_2 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_envad(void * _value) {
+		m_envad_3.setbuffer(_value);
+	};
+	inline void set_gain(t_param _value) {
+		m_gain_4 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_ctrl3_spray(t_param _value) {
+		m_ctrl3_spray_5 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_ctrl4_density(t_param _value) {
+		m_ctrl4_density_6 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_ctrl1_position(t_param _value) {
+		m_ctrl1_position_7 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
+	inline void set_gate1_rec(t_param _value) {
+		m_gate1_rec_8 = (_value < 0 ? 0 : (_value > 1 ? 1 : _value));
+	};
 	inline void set_samplebufferone(void * _value) {
-		m_samplebufferone_1.setbuffer(_value);
+		m_samplebufferone_9.setbuffer(_value);
 	};
 	inline void set_samplebuffertwo(void * _value) {
-		m_samplebuffertwo_2.setbuffer(_value);
+		m_samplebuffertwo_10.setbuffer(_value);
+	};
+	inline void set_envhanning(void * _value) {
+		m_envhanning_11.setbuffer(_value);
 	};
 	
 } State;
@@ -197,17 +280,17 @@ typedef struct State {
 
 /// Number of signal inputs and outputs
 
-int gen_kernel_numins = 2;
-int gen_kernel_numouts = 2;
+int gen_kernel_numins = 1;
+int gen_kernel_numouts = 4;
 
 int num_inputs() { return gen_kernel_numins; }
 int num_outputs() { return gen_kernel_numouts; }
-int num_params() { return 2; }
+int num_params() { return 10; }
 
 /// Assistive lables for the signal inputs and outputs
 
-const char *gen_kernel_innames[] = { "in1", "in2" };
-const char *gen_kernel_outnames[] = { "out1", "out2" };
+const char *gen_kernel_innames[] = { "in1" };
+const char *gen_kernel_outnames[] = { "out1", "out2", "out3", "out4" };
 
 /// Invoke the signal process of a State object
 
@@ -228,8 +311,16 @@ void reset(CommonState *cself) {
 void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 	State *self = (State *)cself;
 	switch (index) {
-		case 0: self->set_samplebufferone(ref); break;
-		case 1: self->set_samplebuffertwo(ref); break;
+		case 0: self->set_ctrl1_position(value); break;
+		case 1: self->set_ctrl2_size(value); break;
+		case 2: self->set_ctrl3_spray(value); break;
+		case 3: self->set_ctrl4_density(value); break;
+		case 4: self->set_envad(ref); break;
+		case 5: self->set_envhanning(ref); break;
+		case 6: self->set_gain(value); break;
+		case 7: self->set_gate1_rec(value); break;
+		case 8: self->set_samplebufferone(ref); break;
+		case 9: self->set_samplebuffertwo(ref); break;
 		
 		default: break;
 	}
@@ -240,6 +331,14 @@ void setparameter(CommonState *cself, long index, t_param value, void *ref) {
 void getparameter(CommonState *cself, long index, t_param *value) {
 	State *self = (State *)cself;
 	switch (index) {
+		case 0: *value = self->m_ctrl1_position_7; break;
+		case 1: *value = self->m_ctrl2_size_2; break;
+		case 2: *value = self->m_ctrl3_spray_5; break;
+		case 3: *value = self->m_ctrl4_density_6; break;
+		
+		
+		case 6: *value = self->m_gain_4; break;
+		case 7: *value = self->m_gate1_rec_8; break;
 		
 		
 		
@@ -322,10 +421,122 @@ void *create(t_param sr, long vs) {
 	self->__commonstate.numouts = gen_kernel_numouts;
 	self->__commonstate.sr = sr;
 	self->__commonstate.vs = vs;
-	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(2 * sizeof(ParamInfo));
-	self->__commonstate.numparams = 2;
-	// initialize parameter 0 ("m_samplebufferone_1")
+	self->__commonstate.params = (ParamInfo *)genlib_sysmem_newptr(10 * sizeof(ParamInfo));
+	self->__commonstate.numparams = 10;
+	// initialize parameter 0 ("m_ctrl1_position_7")
 	pi = self->__commonstate.params + 0;
+	pi->name = "ctrl1_position";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_ctrl1_position_7;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 1 ("m_ctrl2_size_2")
+	pi = self->__commonstate.params + 1;
+	pi->name = "ctrl2_size";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_ctrl2_size_2;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 2 ("m_ctrl3_spray_5")
+	pi = self->__commonstate.params + 2;
+	pi->name = "ctrl3_spray";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_ctrl3_spray_5;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 3 ("m_ctrl4_density_6")
+	pi = self->__commonstate.params + 3;
+	pi->name = "ctrl4_density";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_ctrl4_density_6;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 4 ("m_envad_3")
+	pi = self->__commonstate.params + 4;
+	pi->name = "envad";
+	pi->paramtype = GENLIB_PARAMTYPE_SYM;
+	pi->defaultvalue = 0.;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = false;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 5 ("m_envhanning_11")
+	pi = self->__commonstate.params + 5;
+	pi->name = "envhanning";
+	pi->paramtype = GENLIB_PARAMTYPE_SYM;
+	pi->defaultvalue = 0.;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = false;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 6 ("m_gain_4")
+	pi = self->__commonstate.params + 6;
+	pi->name = "gain";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_gain_4;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 7 ("m_gate1_rec_8")
+	pi = self->__commonstate.params + 7;
+	pi->name = "gate1_rec";
+	pi->paramtype = GENLIB_PARAMTYPE_FLOAT;
+	pi->defaultvalue = self->m_gate1_rec_8;
+	pi->defaultref = 0;
+	pi->hasinputminmax = false;
+	pi->inputmin = 0;
+	pi->inputmax = 1;
+	pi->hasminmax = true;
+	pi->outputmin = 0;
+	pi->outputmax = 1;
+	pi->exp = 0;
+	pi->units = "";		// no units defined
+	// initialize parameter 8 ("m_samplebufferone_9")
+	pi = self->__commonstate.params + 8;
 	pi->name = "samplebufferone";
 	pi->paramtype = GENLIB_PARAMTYPE_SYM;
 	pi->defaultvalue = 0.;
@@ -338,8 +549,8 @@ void *create(t_param sr, long vs) {
 	pi->outputmax = 1;
 	pi->exp = 0;
 	pi->units = "";		// no units defined
-	// initialize parameter 1 ("m_samplebuffertwo_2")
-	pi = self->__commonstate.params + 1;
+	// initialize parameter 9 ("m_samplebuffertwo_10")
+	pi = self->__commonstate.params + 9;
 	pi->name = "samplebuffertwo";
 	pi->paramtype = GENLIB_PARAMTYPE_SYM;
 	pi->defaultvalue = 0.;

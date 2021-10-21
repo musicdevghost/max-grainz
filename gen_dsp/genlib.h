@@ -44,6 +44,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 // gen~ hosted:
 typedef unsigned __INT32_TYPE__ uint32_t;
 typedef unsigned __INT64_TYPE__ uint64_t;
+typedef __INT32_TYPE__ int32_t;
+typedef __INT64_TYPE__ int64_t;
 #else
 #	ifdef __GNUC__
 #		include <stdint.h>
