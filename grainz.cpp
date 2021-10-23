@@ -51,7 +51,7 @@ typedef struct State {
 	t_sample __m_latch_25;
 	t_sample __m_carry_16;
 	t_sample m_ctrl1_position_12;
-	t_sample __m_count_59;
+	t_sample __m_count_82;
 	t_sample m_gain_3;
 	t_sample m_history_1;
 	t_sample samplerate;
@@ -61,7 +61,7 @@ typedef struct State {
 	t_sample m_ctrl4_density_6;
 	t_sample m_gate1_rec_11;
 	t_sample m_ctrl2_size_10;
-	t_sample __m_carry_61;
+	t_sample __m_carry_84;
 	// re-initialize all member variables;
 	inline void reset(t_param __sr, int __vs) {
 		__exception = 0;
@@ -90,8 +90,8 @@ typedef struct State {
 		__m_latch_22 = 0;
 		__m_latch_24 = 0;
 		__m_latch_25 = 0;
-		__m_count_59 = 0;
-		__m_carry_61 = 0;
+		__m_count_82 = 0;
+		__m_carry_84 = 0;
 		genlib_reset_complete(this);
 		
 	};
@@ -118,7 +118,7 @@ typedef struct State {
 		int dim_4989 = samplebufferone_dim;
 		samples_to_seconds = (1 / samplerate);
 		int gt_4927 = (m_gate1_rec_11 > ((t_sample)0.5));
-		t_sample maxGrains_10262 = m_maxGrains_7;
+		t_sample maxGrains_10814 = m_maxGrains_7;
 		__loopcount = (__n * GENLIB_LOOPCOUNT_BAIL);
 		// the main sample loop;
 		while ((__n--)) {
@@ -141,9 +141,9 @@ typedef struct State {
 			int counter_4997 = __m_count_14;
 			int counter_4998 = carry_15;
 			int counter_4999 = __m_carry_16;
-			t_sample sub_10275 = (m_ctrl4_density_6 - ((int)0));
-			t_sample scale_10272 = ((safepow((sub_10275 * ((t_sample)1)), ((int)1)) * ((int)15)) + ((int)0));
-			t_sample scale_4974 = scale_10272;
+			t_sample sub_10827 = (m_ctrl4_density_6 - ((int)0));
+			t_sample scale_10824 = ((safepow((sub_10827 * ((t_sample)1)), ((int)1)) * ((int)15)) + ((int)0));
+			t_sample scale_4974 = scale_10824;
 			if ((((int)0) != 0)) {
 				__m_phasor_18.phase = 0;
 				
@@ -179,9 +179,9 @@ typedef struct State {
 			int trigger_4954 = trigger_4952;
 			__m_latch_24 = ((trigger_4954 != 0) ? m_ctrl1_position_12 : __m_latch_24);
 			t_sample latch_4955 = __m_latch_24;
-			t_sample sub_10279 = (m_ctrl2_size_10 - ((int)0));
-			t_sample scale_10276 = ((safepow((sub_10279 * ((t_sample)1)), ((int)1)) * ((int)1000)) + ((int)0));
-			t_sample scale_4961 = scale_10276;
+			t_sample sub_10831 = (m_ctrl2_size_10 - ((int)0));
+			t_sample scale_10828 = ((safepow((sub_10831 * ((t_sample)1)), ((int)1)) * ((int)1000)) + ((int)0));
+			t_sample scale_4961 = scale_10828;
 			t_sample mstosamps_4960 = (scale_4961 * (samplerate * 0.001));
 			__m_latch_25 = ((trigger_4952 != 0) ? mstosamps_4960 : __m_latch_25);
 			t_sample latch_4953 = __m_latch_25;
@@ -192,7 +192,7 @@ typedef struct State {
 				// for loop initializer;
 				int i = ((int)0);
 				// for loop condition;
-				while ((i < maxGrains_10262)) {
+				while ((i < maxGrains_10814)) {
 					// abort processing if an infinite loop is suspected;
 					if (((__loopcount--) <= 0)) {
 						__exception = GENLIB_ERR_LOOP_OVERFLOW;
@@ -226,6 +226,12 @@ typedef struct State {
 							m_storage_4.write(safediv(end, dim_4989), i, ((int)2));
 							
 						};
+						bool chan_ignore_34 = ((((int)3) < 0) || (((int)3) >= storage_channels));
+						bool index_ignore_35 = ((i >= storage_dim) || (i < 0));
+						if ((!(chan_ignore_34 || index_ignore_35))) {
+							m_storage_4.write(((int)0), i, ((int)3));
+							
+						};
 						break ;
 						
 					};
@@ -245,7 +251,7 @@ typedef struct State {
 			// for loop initializer;
 			int i = ((int)0);
 			// for loop condition;
-			while ((i < maxGrains_10262)) {
+			while ((i < maxGrains_10814)) {
 				// abort processing if an infinite loop is suspected;
 				if (((__loopcount--) <= 0)) {
 					__exception = GENLIB_ERR_LOOP_OVERFLOW;
@@ -254,54 +260,82 @@ typedef struct State {
 				};
 				int storage_dim = m_storage_4.dim;
 				int storage_channels = m_storage_4.channels;
-				bool index_ignore_34 = ((i >= storage_dim) || (i < 0));
+				bool index_ignore_36 = ((i >= storage_dim) || (i < 0));
 				// samples storage channel 1;
-				int chan_35 = ((int)0);
-				bool chan_ignore_36 = ((chan_35 < 0) || (chan_35 >= storage_channels));
-				t_sample x = ((chan_ignore_36 || index_ignore_34) ? 0 : m_storage_4.read(i, chan_35));
+				int chan_37 = ((int)0);
+				bool chan_ignore_38 = ((chan_37 < 0) || (chan_37 >= storage_channels));
+				t_sample x = ((chan_ignore_38 || index_ignore_36) ? 0 : m_storage_4.read(i, chan_37));
 				if ((x != ((int)0))) {
-					bool index_ignore_37 = ((i >= storage_dim) || (i < 0));
+					bool index_ignore_39 = ((i >= storage_dim) || (i < 0));
 					// samples storage channel 1;
-					int chan_38 = ((int)0);
-					bool chan_ignore_39 = ((chan_38 < 0) || (chan_38 >= storage_channels));
-					t_sample phase = ((chan_ignore_39 || index_ignore_37) ? 0 : m_storage_4.read(i, chan_38));
-					double sample_index_40 = (phase * samplebufferone_dim);
-					int index_trunc_41 = fixnan(floor(sample_index_40));
-					double index_fract_42 = (sample_index_40 - index_trunc_41);
-					int index_trunc_43 = (index_trunc_41 + 1);
-					int index_wrap_44 = ((index_trunc_41 < 0) ? ((samplebufferone_dim - 1) + ((index_trunc_41 + 1) % samplebufferone_dim)) : (index_trunc_41 % samplebufferone_dim));
-					int index_wrap_45 = ((index_trunc_43 < 0) ? ((samplebufferone_dim - 1) + ((index_trunc_43 + 1) % samplebufferone_dim)) : (index_trunc_43 % samplebufferone_dim));
+					int chan_40 = ((int)0);
+					bool chan_ignore_41 = ((chan_40 < 0) || (chan_40 >= storage_channels));
+					t_sample phase = ((chan_ignore_41 || index_ignore_39) ? 0 : m_storage_4.read(i, chan_40));
+					bool index_ignore_42 = ((i >= storage_dim) || (i < 0));
+					// samples storage channel 1;
+					int chan_43 = ((int)3);
+					bool chan_ignore_44 = ((chan_43 < 0) || (chan_43 >= storage_channels));
+					t_sample envphase = ((chan_ignore_44 || index_ignore_42) ? 0 : m_storage_4.read(i, chan_43));
+					double sample_index_45 = (phase * samplebufferone_dim);
+					int index_trunc_46 = fixnan(floor(sample_index_45));
+					double index_fract_47 = (sample_index_45 - index_trunc_46);
+					int index_trunc_48 = (index_trunc_46 + 1);
+					int index_wrap_49 = ((index_trunc_46 < 0) ? ((samplebufferone_dim - 1) + ((index_trunc_46 + 1) % samplebufferone_dim)) : (index_trunc_46 % samplebufferone_dim));
+					int index_wrap_50 = ((index_trunc_48 < 0) ? ((samplebufferone_dim - 1) + ((index_trunc_48 + 1) % samplebufferone_dim)) : (index_trunc_48 % samplebufferone_dim));
 					// phase samplebufferone channel 1;
-					int chan_46 = ((int)0);
-					bool chan_ignore_47 = ((chan_46 < 0) || (chan_46 >= samplebufferone_channels));
-					double read_samplebufferone_48 = (chan_ignore_47 ? 0 : m_samplebufferone_9.read(index_wrap_44, chan_46));
-					double read_samplebufferone_49 = (chan_ignore_47 ? 0 : m_samplebufferone_9.read(index_wrap_45, chan_46));
-					double readinterp_50 = linear_interp(index_fract_42, read_samplebufferone_48, read_samplebufferone_49);
-					t_sample sample_10254 = readinterp_50;
-					t_sample sample_10255 = sample_index_40;
-					grainSum = (grainSum + sample_10254);
-					bool index_ignore_51 = ((i >= storage_dim) || (i < 0));
+					int chan_51 = ((int)0);
+					bool chan_ignore_52 = ((chan_51 < 0) || (chan_51 >= samplebufferone_channels));
+					double read_samplebufferone_53 = (chan_ignore_52 ? 0 : m_samplebufferone_9.read(index_wrap_49, chan_51));
+					double read_samplebufferone_54 = (chan_ignore_52 ? 0 : m_samplebufferone_9.read(index_wrap_50, chan_51));
+					double readinterp_55 = linear_interp(index_fract_47, read_samplebufferone_53, read_samplebufferone_54);
+					t_sample sample_10803 = readinterp_55;
+					t_sample sample_10804 = sample_index_45;
+					int envad_dim = m_envad_8.dim;
+					int envad_channels = m_envad_8.channels;
+					t_sample v_56 = (envphase * ((int)2));
+					double sample_index_57 = (((v_56 <= ((int)0)) ? ((int)0) : ((v_56 >= ((int)1)) ? ((int)1) : v_56)) * envad_dim);
+					int index_trunc_58 = fixnan(floor(sample_index_57));
+					double index_fract_59 = (sample_index_57 - index_trunc_58);
+					int index_trunc_60 = (index_trunc_58 - 1);
+					int index_trunc_61 = (index_trunc_58 + 1);
+					int index_trunc_62 = (index_trunc_58 + 2);
+					int index_wrap_63 = ((index_trunc_60 < 0) ? ((envad_dim - 1) + ((index_trunc_60 + 1) % envad_dim)) : (index_trunc_60 % envad_dim));
+					int index_wrap_64 = ((index_trunc_58 < 0) ? ((envad_dim - 1) + ((index_trunc_58 + 1) % envad_dim)) : (index_trunc_58 % envad_dim));
+					int index_wrap_65 = ((index_trunc_61 < 0) ? ((envad_dim - 1) + ((index_trunc_61 + 1) % envad_dim)) : (index_trunc_61 % envad_dim));
+					int index_wrap_66 = ((index_trunc_62 < 0) ? ((envad_dim - 1) + ((index_trunc_62 + 1) % envad_dim)) : (index_trunc_62 % envad_dim));
+					// phase envad channel 1;
+					int chan_67 = ((int)0);
+					bool chan_ignore_68 = ((chan_67 < 0) || (chan_67 >= envad_channels));
+					double read_envad_69 = (chan_ignore_68 ? 0 : m_envad_8.read(index_wrap_63, chan_67));
+					double read_envad_70 = (chan_ignore_68 ? 0 : m_envad_8.read(index_wrap_64, chan_67));
+					double read_envad_71 = (chan_ignore_68 ? 0 : m_envad_8.read(index_wrap_65, chan_67));
+					double read_envad_72 = (chan_ignore_68 ? 0 : m_envad_8.read(index_wrap_66, chan_67));
+					double readinterp_73 = spline_interp(index_fract_59, read_envad_69, read_envad_70, read_envad_71, read_envad_72);
+					t_sample peek_10805 = readinterp_73;
+					t_sample peek_10806 = sample_index_57;
+					grainSum = (grainSum + (sample_10803 * peek_10805));
+					bool index_ignore_74 = ((i >= storage_dim) || (i < 0));
 					// samples storage channel 1;
-					int chan_52 = ((int)1);
-					bool chan_ignore_53 = ((chan_52 < 0) || (chan_52 >= storage_channels));
-					t_sample peek_10256 = ((chan_ignore_53 || index_ignore_51) ? 0 : m_storage_4.read(i, chan_52));
-					t_sample peek_10257 = i;
-					t_sample nextphase = (phase + peek_10256);
-					bool index_ignore_54 = ((i >= storage_dim) || (i < 0));
+					int chan_75 = ((int)1);
+					bool chan_ignore_76 = ((chan_75 < 0) || (chan_75 >= storage_channels));
+					t_sample peek_10807 = ((chan_ignore_76 || index_ignore_74) ? 0 : m_storage_4.read(i, chan_75));
+					t_sample peek_10808 = i;
+					t_sample nextphase = (phase + peek_10807);
+					bool index_ignore_77 = ((i >= storage_dim) || (i < 0));
 					// samples storage channel 1;
-					int chan_55 = ((int)2);
-					bool chan_ignore_56 = ((chan_55 < 0) || (chan_55 >= storage_channels));
-					t_sample tresh = ((chan_ignore_56 || index_ignore_54) ? 0 : m_storage_4.read(i, chan_55));
+					int chan_78 = ((int)2);
+					bool chan_ignore_79 = ((chan_78 < 0) || (chan_78 >= storage_channels));
+					t_sample tresh = ((chan_ignore_79 || index_ignore_77) ? 0 : m_storage_4.read(i, chan_78));
 					if ((nextphase < tresh)) {
-						bool index_ignore_57 = ((i >= storage_dim) || (i < 0));
-						if ((!index_ignore_57)) {
+						bool index_ignore_80 = ((i >= storage_dim) || (i < 0));
+						if ((!index_ignore_80)) {
 							m_storage_4.write(nextphase, i, 0);
 							
 						};
 						
 					} else {
-						bool index_ignore_58 = ((i >= storage_dim) || (i < 0));
-						if ((!index_ignore_58)) {
+						bool index_ignore_81 = ((i >= storage_dim) || (i < 0));
+						if ((!index_ignore_81)) {
 							m_storage_4.write(((int)0), i, 0);
 							
 						};
@@ -316,26 +350,26 @@ typedef struct State {
 			t_sample out2 = grainSum;
 			t_sample out1 = grainSum;
 			t_sample size_4981 = size_4962;
-			__m_count_59 = (trigger_4922 ? 0 : (fixdenorm(__m_count_59 + m_history_1)));
-			int carry_60 = 0;
+			__m_count_82 = (trigger_4922 ? 0 : (fixdenorm(__m_count_82 + m_history_1)));
+			int carry_83 = 0;
 			if ((trigger_4922 != 0)) {
-				__m_count_59 = 0;
-				__m_carry_61 = 0;
+				__m_count_82 = 0;
+				__m_carry_84 = 0;
 				
-			} else if (((size_4981 > 0) && (__m_count_59 >= size_4981))) {
-				int wraps_62 = (__m_count_59 / size_4981);
-				__m_carry_61 = (__m_carry_61 + wraps_62);
-				__m_count_59 = (__m_count_59 - (wraps_62 * size_4981));
-				carry_60 = 1;
+			} else if (((size_4981 > 0) && (__m_count_82 >= size_4981))) {
+				int wraps_85 = (__m_count_82 / size_4981);
+				__m_carry_84 = (__m_carry_84 + wraps_85);
+				__m_count_82 = (__m_count_82 - (wraps_85 * size_4981));
+				carry_83 = 1;
 				
 			};
-			t_sample counter_4990 = __m_count_59;
-			int counter_4991 = carry_60;
-			int counter_4992 = __m_carry_61;
+			t_sample counter_4990 = __m_count_82;
+			int counter_4991 = carry_83;
+			int counter_4992 = __m_carry_84;
 			t_sample sub_4968 = (size_4981 - ((int)1));
 			int lt_4969 = (counter_4990 < sub_4968);
-			t_sample history_4967_next_10263 = fixdenorm(lt_4969);
-			m_history_1 = history_4967_next_10263;
+			t_sample history_4967_next_10815 = fixdenorm(lt_4969);
+			m_history_1 = history_4967_next_10815;
 			// assign results to output buffer;
 			(*(__out1++)) = out1;
 			(*(__out2++)) = out2;
