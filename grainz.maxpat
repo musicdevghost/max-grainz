@@ -40,6 +40,104 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"attr" : "pan_off",
+					"id" : "obj-50",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 275.0, 323.542862113884496, 151.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-44",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 578.5, 176.042862113884496, 73.0, 20.0 ],
+					"text" : "pan offset"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-45",
+					"maxclass" : "live.dial",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "float" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 541.0, 168.542862113884496, 27.0, 37.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "knob2[8]",
+							"parameter_mmax" : 1.0,
+							"parameter_modmode" : 1,
+							"parameter_shortname" : "knob2",
+							"parameter_type" : 0,
+							"parameter_unitstyle" : 1
+						}
+
+					}
+,
+					"showname" : 0,
+					"varname" : "live.dial[7]"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"attr" : "radio",
+					"id" : "obj-43",
+					"maxclass" : "attrui",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 275.0, 299.542862113884496, 151.0, 22.0 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 582.5, 336.042862113884496, 73.0, 20.0 ],
+					"text" : "pitch mod"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-42",
+					"maxclass" : "live.dial",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "", "float" ],
+					"parameter_enable" : 1,
+					"patching_rect" : [ 545.0, 328.542862113884496, 27.0, 37.0 ],
+					"saved_attribute_attributes" : 					{
+						"valueof" : 						{
+							"parameter_longname" : "knob2[5]",
+							"parameter_mmax" : 1.0,
+							"parameter_modmode" : 1,
+							"parameter_shortname" : "knob2",
+							"parameter_type" : 0,
+							"parameter_unitstyle" : 1
+						}
+
+					}
+,
+					"showname" : 0,
+					"varname" : "live.dial[6]"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"attr" : "pan",
 					"id" : "obj-40",
 					"maxclass" : "attrui",
@@ -56,7 +154,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 583.5, 150.542862113884496, 73.0, 20.0 ],
+					"patching_rect" : [ 582.5, 283.042862113884496, 73.0, 20.0 ],
 					"text" : "pan mod"
 				}
 
@@ -69,7 +167,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 546.0, 143.042862113884496, 27.0, 37.0 ],
+					"patching_rect" : [ 545.0, 275.542862113884496, 27.0, 37.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "knob2[4]",
@@ -94,7 +192,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 778.0, 519.0, 178.0, 136.0 ]
+					"patching_rect" : [ 781.0, 589.0, 178.0, 136.0 ]
 				}
 
 			}
@@ -109,7 +207,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "signal", "float" ],
-					"patching_rect" : [ 778.0, 487.0, 96.0, 22.0 ],
+					"patching_rect" : [ 781.0, 557.0, 96.0, 22.0 ],
 					"sig" : 0.0
 				}
 
@@ -121,7 +219,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 531.0, 500.0, 178.0, 136.0 ]
+					"patching_rect" : [ 534.0, 570.0, 178.0, 136.0 ]
 				}
 
 			}
@@ -132,7 +230,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 834.0, 131.542862113884496, 101.0, 22.0 ],
+					"patching_rect" : [ 868.0, 120.542862113884496, 101.0, 22.0 ],
 					"text" : "fill 1, apply welch"
 				}
 
@@ -144,7 +242,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 856.0, 100.542862113884496, 103.0, 22.0 ],
+					"patching_rect" : [ 890.0, 89.542862113884496, 103.0, 22.0 ],
 					"text" : "fill 1, apply kaiser"
 				}
 
@@ -156,7 +254,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 727.0, 100.542862113884496, 122.0, 22.0 ],
+					"patching_rect" : [ 761.0, 89.542862113884496, 122.0, 22.0 ],
 					"text" : "fill 1, apply blackman"
 				}
 
@@ -168,7 +266,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 711.0, 131.542862113884496, 113.0, 22.0 ],
+					"patching_rect" : [ 745.0, 120.542862113884496, 113.0, 22.0 ],
 					"text" : "fill 1, apply hanning"
 				}
 
@@ -180,7 +278,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
-					"patching_rect" : [ 711.0, 168.542862113884496, 192.0, 22.0 ],
+					"patching_rect" : [ 745.0, 157.542862113884496, 192.0, 22.0 ],
 					"text" : "buffer~ envhanning @samps 4096"
 				}
 
@@ -194,7 +292,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 275.0, 299.428572584901531, 151.0, 22.0 ]
+					"patching_rect" : [ 275.0, 349.542862113884496, 151.0, 22.0 ]
 				}
 
 			}
@@ -216,7 +314,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 583.5, 188.542862113884496, 73.0, 20.0 ],
+					"patching_rect" : [ 582.5, 400.542862113884496, 73.0, 20.0 ],
 					"text" : "gain"
 				}
 
@@ -229,7 +327,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 546.0, 188.542862113884496, 27.0, 37.0 ],
+					"patching_rect" : [ 545.0, 400.542862113884496, 27.0, 37.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "knob2[7]",
@@ -303,7 +401,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 343.5, 500.0, 178.0, 136.0 ]
+					"patching_rect" : [ 346.5, 570.0, 178.0, 136.0 ]
 				}
 
 			}
@@ -314,7 +412,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 716.600000023841858, 10.600004971027374, 58.0, 22.0 ],
+					"patching_rect" : [ 745.0, 21.600004971027374, 58.0, 22.0 ],
 					"text" : "loadbang"
 				}
 
@@ -603,10 +701,10 @@
 					"clipheight" : 29.0,
 					"data" : 					{
 						"clips" : [ 							{
-								"absolutepath" : "isthatyou.aiff",
-								"filename" : "isthatyou.aiff",
+								"absolutepath" : "drumLoop.aif",
+								"filename" : "drumLoop.aif",
 								"filekind" : "audiofile",
-								"id" : "u848005748",
+								"id" : "u587003261",
 								"loop" : 1,
 								"content_state" : 								{
 									"loop" : 1
@@ -641,7 +739,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 155.5, 500.0, 178.0, 136.0 ]
+					"patching_rect" : [ 158.5, 570.0, 178.0, 136.0 ]
 				}
 
 			}
@@ -651,7 +749,7 @@
 					"maxclass" : "ezdac~",
 					"numinlets" : 2,
 					"numoutlets" : 0,
-					"patching_rect" : [ 78.0, 662.0, 45.0, 45.0 ]
+					"patching_rect" : [ 81.0, 732.0, 45.0, 45.0 ]
 				}
 
 			}
@@ -664,7 +762,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "signal", "signal", "", "float", "list" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 78.0, 496.0, 48.0, 136.0 ],
+					"patching_rect" : [ 81.0, 566.0, 48.0, 136.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_longname" : "live.gain~",
@@ -686,8 +784,8 @@
 					"id" : "obj-9",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
-					"numoutlets" : 6,
-					"outlettype" : [ "signal", "signal", "signal", "signal", "signal", "signal" ],
+					"numoutlets" : 5,
+					"outlettype" : [ "signal", "signal", "signal", "signal", "signal" ],
 					"patcher" : 					{
 						"fileversion" : 1,
 						"appversion" : 						{
@@ -699,7 +797,7 @@
 						}
 ,
 						"classnamespace" : "dsp.gen",
-						"rect" : [ 34.0, 87.0, 972.0, 779.0 ],
+						"rect" : [ 34.0, 87.0, 1372.0, 779.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -729,12 +827,58 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-38",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 914.5, 881.0, 39.0, 22.0 ],
+									"text" : "r ratio"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-36",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 597.0, 430.0, 41.0, 22.0 ],
+									"text" : "s ratio"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-28",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 597.0, 397.0, 182.0, 22.0 ],
+									"text" : "param radio 0 @min 0. @max 1."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-7",
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 597.0, 368.0, 150.0, 20.0 ],
+									"text" : "pitch"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-26",
 									"maxclass" : "newobj",
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 914.5, 877.0, 36.0, 22.0 ],
+									"patching_rect" : [ 785.299999999999955, 877.0, 36.0, 22.0 ],
 									"text" : "r pan"
 								}
 
@@ -852,19 +996,8 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 753.0, 877.0, 45.0, 22.0 ],
+									"patching_rect" : [ 656.100000000000023, 877.0, 45.0, 22.0 ],
 									"text" : "r spray"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-104",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 1021.0, 721.0, 35.0, 22.0 ],
-									"text" : "out 6"
 								}
 
 							}
@@ -875,7 +1008,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 591.5, 877.0, 57.0, 22.0 ],
+									"patching_rect" : [ 526.899999999999977, 877.0, 57.0, 22.0 ],
 									"text" : "r position"
 								}
 
@@ -887,7 +1020,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 430.0, 877.0, 37.0, 22.0 ],
+									"patching_rect" : [ 397.699999999999989, 877.0, 37.0, 22.0 ],
 									"text" : "r size"
 								}
 
@@ -906,13 +1039,13 @@
 							}
 , 							{
 								"box" : 								{
-									"code" : "asmoother(asig,smoothstep) {\r\n\tHistory history_1(0);\n\tmix_2 = mix(asig, history_1, smoothstep);\n\taout = mix_2;\n\thistory_1_next_3 = fixdenorm(mix_2);\n\thistory_1 = history_1_next_3;\r\n\r\n\treturn aout;\r\n}\r\n\r\npanleft(asig,apan) {\r\n\tapan1 = asmoother(apan,0.95);\r\n\t\r\n\treturn asig * cos(apan1*0.25*twopi);\t\r\n}\r\n\r\npanright(asig,apan) {\r\n\tapan1 = asmoother(apan,0.95);\r\n\t\r\n\treturn asig * cos(((apan1*0.25)+0.75)*twopi);\t\t\r\n}\r\n\nData storage(20, 8); // chan1: current phase; chan2: accum val; chan3: threshold, chan4: duration, chan5: grain accum val, chan6: grain start val, chan7: grain pan val\nParam playSpeed(1);\nParam maxgrains(20);\r\nParam bw(2.0);\r\nParam dur_mod(0);\r\nParam pan_off(0.5);\r\nParam ratio_offset(1.0);\r\nParam ratio_mod(0.0);\nsoundSize = dim(samplebufferone);\n\ngrainTrig = in1;\r\ngrainSize = in2;\r\ngrainPosition = in3;\r\ngrainSpray = in4;\r\npan_mod = in5;\r\n\nreset = 0;\r\nenvphase = 0;\r\nif (grainTrig == 1) {\n\tfor (i=0; i<maxgrains; i+=1) {\n\t\tx = peek(storage, i);\n\t\tif (x==0) { // entry == 0 means it is available\r\n\t\t\tenvphase = 0;\n\t\t\tdur = max(mstosamps(grainSize)+(scale(noise(),-1,1,0.01,0.99)*mstosamps(dur_mod)),grainSize*0.075);\r\n\t\t\tpan = latch(pan_off+(abs(noise())*pan_mod),grainTrig);\r\n\t\t\tpitchratio = ratio_offset + (noise()*ratio_mod);\n\t\t\tstart = grainPosition*(soundSize - dur) + grainSpray*(soundSize - dur);\n\t\t\tend = start + dur;\n\t\t\tpoke(storage, start/soundSize, i, 0); // current (start) phase ->poke(name, value, position, channel, mix)\n\t\t\tpoke(storage, 1/soundSize, i, 1); // accum val\n\t\t\tpoke(storage, end/soundSize, i, 2); // threshold\r\n\t\t\tpoke(storage, dur, i, 3); // duration\r\n\t\t\tpoke(storage, 1/dur, i, 4); // grain accum val\r\n\t\t\tpoke(storage, 0, i, 5); // grain env start value\r\n\t\t\tpoke(storage, pan, i, 6); // grain env start value\r\n\t\t\tpoke(storage, pitchratio, i, 7); // grain pitch ratio\n\t\t\tbreak;\t\t\t\n\t\t}\n\t}\n}\n\ngrainSum = 0;\r\ngrainSum_left = 0;\r\ngrainSum_right = 0;\n\nfor (i=0; i<maxgrains; i+=1) {\n\tx = peek(storage, i);\n\tif (x != 0) {\n\t\tphase = peek(storage, i, 0); // current phase\r\n\t\tenvphase = peek(storage, i, 5);\r\n\t\t\r\n\t\tgrainSum_left  = grainSum_left + panleft((sample(samplebufferone, phase*peek(storage, i, 7))*peek(envhanning, clip(envphase*bw,0,1),index=\"phase\",interp=\"spline\",boundmode=\"wrap\")),peek(storage, i, 6)); \r\n\t\tgrainSum_right  = grainSum_right + panright((sample(samplebufferone, phase*peek(storage, i, 7))*peek(envhanning, clip(envphase*bw,0,1),index=\"phase\",interp=\"spline\",boundmode=\"wrap\")),peek(storage, i, 6));\r\n\t\t\r\n\t\tnextphase = phase + peek(storage, i, 1);\r\n\t\tnextphase2 = envphase + peek(storage, i, 4);\r\n\t\t\n\t\ttresh = peek(storage, i, 2);\r\n\t\tthresh2 = 1;\r\n\t\t\n\t\tif (nextphase < tresh) {\n\t\t\tpoke(storage, nextphase, i, 0);\n\t\t}\n\t\telse {\n\t\t\tpoke(storage, 0, i, 0);\n\t\t}\r\n\t\t\r\n\t\tif (nextphase2 < thresh2) {\n\t\t\tpoke(storage, nextphase2, i, 5);\n\t\t}\n\t\telse {\n\t\t\tpoke(storage, 0, i, 5);\n\t\t}\r\n\t\t\r\n\t\t\r\n\t\t\n\t}\n}\n\nout1 = grainSum_left;\r\nout2 = grainSum_right;\r\n",
+									"code" : "asmoother(asig,smoothstep) {\r\n\tHistory history_1(0);\n\tmix_2 = mix(asig, history_1, smoothstep);\n\taout = mix_2;\n\thistory_1_next_3 = fixdenorm(mix_2);\n\thistory_1 = history_1_next_3;\r\n\r\n\treturn aout;\r\n}\r\n\r\npanleft(asig,apan) {\r\n\tapan1 = asmoother(apan,0.95);\r\n\t\r\n\treturn asig * cos(apan1*0.25*twopi);\t\r\n}\r\n\r\npanright(asig,apan) {\r\n\tapan1 = asmoother(apan,0.95);\r\n\t\r\n\treturn asig * cos(((apan1*0.25)+0.75)*twopi);\t\t\r\n}\r\n\nData storage(20, 8); // chan1: current phase; chan2: accum val; chan3: threshold, chan4: duration, chan5: grain accum val, chan6: grain start val, chan7: grain pan val\n\r\nParam playSpeed(1);\nParam maxgrains(20);\r\nParam bw(2.0);\r\nParam dur_mod(0);\r\nParam pan_off(0.5);\r\nParam ratio_offset(1.0);\r\n\nsoundSize = dim(samplebufferone);\n\ngrainTrig = in1;\r\ngrainSize = in2;\r\ngrainPosition = in3;\r\ngrainSpray = in4;\r\npan_mod = in5;\r\nratio_mod = in6;\r\n\nreset = 0;\r\nenvphase = 0;\r\nif (grainTrig == 1) {\n\tfor (i=0; i<maxgrains; i+=1) {\n\t\tx = peek(storage, i);\n\t\tif (x==0) { // entry == 0 means it is available\r\n\t\t\tenvphase = 0;\n\t\t\tdur = max(mstosamps(grainSize)+(scale(noise(),-1,1,0.01,0.99)*mstosamps(dur_mod)),grainSize*0.075);\r\n\t\t\tpan = latch(pan_off+(abs(noise())*pan_mod),grainTrig);\r\n\t\t\tpitchratio = ratio_offset + (noise()*ratio_mod);\n\t\t\tstart = grainPosition*(soundSize - dur) + grainSpray*(soundSize - dur);\n\t\t\tend = start + dur;\n\t\t\tpoke(storage, start/soundSize, i, 0); // current (start) phase ->poke(name, value, position, channel, mix)\n\t\t\tpoke(storage, 1/soundSize, i, 1); // accum val\n\t\t\tpoke(storage, end/soundSize, i, 2); // threshold\r\n\t\t\tpoke(storage, dur, i, 3); // duration\r\n\t\t\tpoke(storage, 1/dur, i, 4); // grain accum val\r\n\t\t\tpoke(storage, 0, i, 5); // grain env start value\r\n\t\t\tpoke(storage, pan, i, 6); // grain env start value\r\n\t\t\tpoke(storage, pitchratio, i, 7); // grain pitch ratio\n\t\t\tbreak;\t\t\t\n\t\t}\n\t}\n}\n\ngrainSum = 0;\r\ngrainSum_left = 0;\r\ngrainSum_right = 0;\n\nfor (i=0; i<maxgrains; i+=1) {\n\tx = peek(storage, i);\n\tif (x != 0) {\n\t\tphase = peek(storage, i, 0); // current phase\r\n\t\tenvphase = peek(storage, i, 5);\r\n\t\t\r\n\t\tgrainSum_left  = grainSum_left + panleft((sample(samplebufferone, phase*peek(storage, i, 7))*peek(envhanning, clip(envphase*bw,0,1),index=\"phase\",interp=\"spline\",boundmode=\"wrap\")),peek(storage, i, 6)); \r\n\t\tgrainSum_right = grainSum_right + panright((sample(samplebufferone, phase*peek(storage, i, 7))*peek(envhanning, clip(envphase*bw,0,1),index=\"phase\",interp=\"spline\",boundmode=\"wrap\")),peek(storage, i, 6));\r\n\t\t\r\n\t\tnextphase = phase + peek(storage, i, 1);\r\n\t\tnextphase2 = envphase + peek(storage, i, 4);\r\n\t\t\n\t\ttresh = peek(storage, i, 2);\r\n\t\tthresh2 = 1;\r\n\t\t\n\t\tif (nextphase < tresh) {\n\t\t\tpoke(storage, nextphase, i, 0);\n\t\t} else {\n\t\t\tpoke(storage, 0, i, 0);\n\t\t}\r\n\t\t\r\n\t\tif (nextphase2 < thresh2) {\n\t\t\tpoke(storage, nextphase2, i, 5);\n\t\t} else {\n\t\t\tpoke(storage, 0, i, 5);\n\t\t}\r\n\t\t\r\n\t\t\r\n\t\t\n\t}\n}\n\nout1 = grainSum_left;\r\nout2 = grainSum_right;\r\n",
 									"fontface" : 0,
 									"fontname" : "<Monospaced>",
 									"fontsize" : 12.0,
 									"id" : "obj-94",
 									"maxclass" : "codebox",
-									"numinlets" : 5,
+									"numinlets" : 6,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
 									"patching_rect" : [ 268.5, 912.0, 665.0, 413.0 ]
@@ -1133,7 +1266,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 1108.0, 749.33333158493042, 47.0, 22.0 ],
+									"patching_rect" : [ 1108.0, 694.33333158493042, 47.0, 22.0 ],
 									"text" : "s spray"
 								}
 
@@ -1980,6 +2113,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-36", 0 ],
+									"source" : [ "obj-28", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-16", 0 ],
 									"source" : [ "obj-3", 0 ]
 								}
@@ -2016,17 +2156,15 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-104", 0 ],
-									"order" : 1,
+									"destination" : [ "obj-44", 0 ],
 									"source" : [ "obj-37", 0 ]
 								}
 
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-44", 0 ],
-									"order" : 0,
-									"source" : [ "obj-37", 0 ]
+									"destination" : [ "obj-94", 5 ],
+									"source" : [ "obj-38", 0 ]
 								}
 
 							}
@@ -2150,7 +2288,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 78.0, 438.0, 333.0, 22.0 ],
+					"patching_rect" : [ 81.0, 508.0, 333.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"exportfolder" : "Macintosh HD:/Users/peugenio/Desktop/DEV/max-grainz/",
 						"exportname" : "grainz"
@@ -2317,7 +2455,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-7", 0 ],
-					"midpoints" : [ 726.100000023841858, 52.957144013472941, 1291.600000023841858, 52.957144013472941 ],
+					"midpoints" : [ 754.5, 52.957144013472941, 1291.600000023841858, 52.957144013472941 ],
 					"order" : 0,
 					"source" : [ "obj-39", 0 ]
 				}
@@ -2334,6 +2472,27 @@
 				"patchline" : 				{
 					"destination" : [ "obj-9", 0 ],
 					"source" : [ "obj-40", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-43", 0 ],
+					"source" : [ "obj-42", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-43", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-50", 0 ],
+					"source" : [ "obj-45", 0 ]
 				}
 
 			}
@@ -2362,6 +2521,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-9", 0 ],
+					"source" : [ "obj-50", 0 ]
 				}
 
 			}
@@ -2427,22 +2593,6 @@
 				}
 
 			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-29", 0 ],
-					"order" : 1,
-					"source" : [ "obj-9", 5 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-3", 0 ],
-					"order" : 0,
-					"source" : [ "obj-9", 5 ]
-				}
-
-			}
  ],
 		"parameters" : 		{
 			"obj-14" : [ "live.gain~", "live.gain~", 0 ],
@@ -2450,6 +2600,8 @@
 			"obj-19" : [ "knob2[4]", "knob2", 0 ],
 			"obj-25" : [ "knob2[3]", "knob2", 0 ],
 			"obj-28" : [ "knob2", "knob2", 0 ],
+			"obj-42" : [ "knob2[5]", "knob2", 0 ],
+			"obj-45" : [ "knob2[8]", "knob2", 0 ],
 			"obj-46" : [ "knob2[7]", "knob2", 0 ],
 			"obj-5" : [ "knob2[1]", "knob2", 0 ],
 			"parameterbanks" : 			{
@@ -2467,8 +2619,8 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "isthatyou.aiff",
-				"bootpath" : "C74:/docs/tutorial-patchers/msp-tut",
+				"name" : "drumLoop.aif",
+				"bootpath" : "C74:/media/msp",
 				"type" : "AIFF",
 				"implicit" : 1
 			}
